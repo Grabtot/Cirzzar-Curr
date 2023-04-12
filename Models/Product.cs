@@ -1,11 +1,24 @@
 ﻿using CirzzarCurr.Models.Enums;
-using System.Drawing;
+
 
 namespace CirzzarCurr.Models
 {
     public abstract class Product
     {
-        public virtual decimal Price { get; set; }
+        private decimal _minimalPrice;
+        public decimal MinimalPrice
+        {
+            get => _minimalPrice; protected set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException(nameof(value));
+                }
+                _minimalPrice = value;
+            }
+        }
+        public virtual decimal Price => _minimalPrice;
+        public int Id { get; protected set; }
         public string Name { get; set; }
         public int? Size { get; set; }
         public Image Image { get; set; }
@@ -15,10 +28,11 @@ namespace CirzzarCurr.Models
         {
             Name = string.Empty;
             Size = 0;
+            Image = new Image<Rgba32>(1, 1);
         }
         protected Product(decimal price, string name, int? size, Image image, ProductType type)
         {
-            Price = price;
+            MinimalPrice = price;
             Name = name;
             Size = size;
             Image = image;
@@ -27,6 +41,10 @@ namespace CirzzarCurr.Models
         protected Product(ProductType type) : this()
         {
             Type = type;
+        }
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }
