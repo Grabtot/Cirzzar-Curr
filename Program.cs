@@ -1,5 +1,6 @@
 using CirzzarCurr.Data;
 using CirzzarCurr.Models;
+using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -21,6 +22,8 @@ builder.Services.AddIdentityServer()
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
+
+builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
