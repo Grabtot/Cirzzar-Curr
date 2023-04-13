@@ -18,9 +18,9 @@ namespace CirzzarCurr.Models
             }
         }
         public virtual decimal Price => _minimalPrice;
-        public int Id { get; protected set; }
+        public int Id { get; set; }
         public string Name { get; set; }
-        public int Count { get; protected set; }
+        public int Count { get; set; }
         public int? Size { get; set; }
         public Image Image { get; set; }
 

@@ -1,5 +1,6 @@
 using CirzzarCurr.Data;
 using CirzzarCurr.Models;
+using CirzzarCurr.Repositories;
 using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,8 @@ builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
 
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
