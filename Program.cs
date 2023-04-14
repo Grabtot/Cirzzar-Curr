@@ -3,8 +3,6 @@ using CirzzarCurr.Models;
 using CirzzarCurr.Repositories;
 using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +24,7 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IIngredientsRepository, IngredientsRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllersWithViews();
