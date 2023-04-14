@@ -13,6 +13,7 @@ namespace CirzzarCurr.Data
     {
         private readonly IImageService _imageService;
         public DbSet<Product> Products { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Order> Orders { get; set; }
 
         private readonly ValueConverter<DateOnly, DateTime> _dateOnlyConverter = new(
