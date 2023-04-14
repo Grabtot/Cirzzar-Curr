@@ -7,11 +7,10 @@ namespace CirzzarCurr.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        private readonly IIngredientsRepository _ingredientsRepository;
-        public ProductService(IProductRepository productRepository, IIngredientsRepository ingredientsRepository)
+
+        public ProductService(IProductRepository productRepository)
         {
             _productRepository = productRepository;
-            _ingredientsRepository = ingredientsRepository;
         }
 
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
@@ -42,16 +41,6 @@ namespace CirzzarCurr.Services
         public async Task DeleteProductByIdAsync(int id)
         {
             await _productRepository.DeleteByIdAsync(id);
-        }
-
-        public async Task<Ingredient> AddIngredientAsync(Ingredient ingredient)
-        {
-            return await _ingredientsRepository.AddAsync(ingredient);
-        }
-
-        public async Task<IEnumerable<Ingredient>> GetAllIngredientsAsync()
-        {
-            return await _ingredientsRepository.GetAllAsync();
         }
     }
 

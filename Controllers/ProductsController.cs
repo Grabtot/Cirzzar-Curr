@@ -26,15 +26,8 @@ namespace CirzzarCurr.Controllers
         {
             return Ok(await _productService.GetProductsByTypeAsync<Pizza>(Models.Enums.ProductType.Pizza));
         }
-
-        [HttpGet("pizza/ingredients")]
-        public async Task<ActionResult<IEnumerable<Ingredient>>> GetPizzasIngredients()
-        {
-            return Ok(await _productService.GetAllIngredientsAsync());
-        }
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<Product>> Get(int id)
         {
             try
             {
@@ -47,19 +40,13 @@ namespace CirzzarCurr.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> AddProduct([FromBody] Product product)
+        public async Task<ActionResult<Product>> Post([FromBody] Product product)
         {
             return Ok(await _productService.AddProductAsync(product));
         }
 
-        [HttpPost("pizza/ingredients")]
-        public async Task<ActionResult<Ingredient>> AddIngredient([FromBody] Ingredient ingredient)
-        {
-            return Ok(await _productService.AddIngredientAsync(ingredient));
-        }
-
         [HttpPut]
-        public async Task<ActionResult<Product>> UpdateProduct([FromBody] Product product)
+        public async Task<ActionResult<Product>> Put([FromBody] Product product)
         {
             try
             {
@@ -72,7 +59,7 @@ namespace CirzzarCurr.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteProduct(int id)
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
