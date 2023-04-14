@@ -1,7 +1,7 @@
-const prefix = "/api/products";
+const prefix = "/products";
 
 export const ApiProductsRoutes = {
   AllProducts: prefix,
-  Pizza: `${prefix}/pizza`,
-  Ingredients: `${prefix}/pizza/ingredients`,
+  Pizza: `https://localhost:7031/api/products/pizza`,
+  Ingredients: `https://localhost:7031/api/pizza/ingredients`,
 };
