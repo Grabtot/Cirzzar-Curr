@@ -11,8 +11,9 @@ namespace CirzzarCurr.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        private IImageService _imageService;
+        private readonly IImageService _imageService;
         public DbSet<Product> Products { get; set; }
+        public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Order> Orders { get; set; }
 
         private readonly ValueConverter<DateOnly, DateTime> _dateOnlyConverter = new(
@@ -21,7 +22,9 @@ namespace CirzzarCurr.Data
 
 
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions, IImageService imageService)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
             : base(options, operationalStoreOptions)
         {
             _imageService = imageService;
@@ -39,7 +42,7 @@ namespace CirzzarCurr.Data
                 .HasConversion(_dateOnlyConverter);
 
 
-            ValueConverter<Image, string> imageConverter = new(
+            ValueConverter<Image?, string?> imageConverter = new(
                    image => _imageService.EncodeImage(image),
                    encoded => _imageService.DecodeImage(encoded));
 

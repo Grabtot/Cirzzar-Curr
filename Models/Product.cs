@@ -3,7 +3,7 @@
 
 namespace CirzzarCurr.Models
 {
-    public abstract class Product
+    public abstract class Product : IEntity<int>
     {
         private decimal _minimalPrice;
         public decimal MinimalPrice
@@ -22,7 +22,7 @@ namespace CirzzarCurr.Models
         public string Name { get; set; }
         public int Count { get; set; }
         public int? Size { get; set; }
-        public Image Image { get; set; }
+        public Image? Image { get; set; }
 
         public ProductType Type { get; set; }
         public Product()

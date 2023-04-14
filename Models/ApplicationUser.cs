@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CirzzarCurr.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IEntity<string>
     {
 
         [PersonalData]
