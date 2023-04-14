@@ -1,9 +1,9 @@
 ﻿
 namespace CirzzarCurr.Models
 {
-    public class Ingredient
+    public class Ingredient : IEntity<int>
     {
-        public int Id { get; protected set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public Image? Image { get; set; }
         public List<Pizza> Pizzas { get; set; } = new List<Pizza>();

@@ -1,14 +1,14 @@
 ﻿namespace CirzzarCurr.Models
 {
-    public class Order
+    public class Order : IEntity<int>
     {
-        public int Id { get; protected set; }
+        public int Id { get; set; }
         public bool IsActive { get; set; } = true;
-        public decimal Price { get; protected set; }
-        public Address Address { get; protected set; } = new();
-        public ApplicationUser? User { get; protected set; }
-        public DateTime ReceiptTime { get; protected set; }
-        public DateTime DeliveryTime { get; protected set; }
-        public List<Product> Products { get; protected set; } = new List<Product>();
+        public decimal Price { get; set; }
+        public Address Address { get; set; } = new();
+        public ApplicationUser? User { get; set; }
+        public DateTime ReceiptTime { get; set; }
+        public DateTime DeliveryTime { get; set; }
+        public List<Product> Products { get; set; } = new List<Product>();
     }
 }
