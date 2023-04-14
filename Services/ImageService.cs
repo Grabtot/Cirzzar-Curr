@@ -23,11 +23,11 @@ namespace CirzzarCurr.Services
             _basePath = Path.Combine(environment.ContentRootPath, relativePath);
         }
 
-        public Image DecodeImage(string encoded)
+        public Image? DecodeImage(string? encoded)
         {
             if (string.IsNullOrEmpty(encoded))
             {
-                throw new ArgumentNullException(nameof(encoded));
+                return null;
             }
 
             byte[] imageData = Convert.FromBase64String(encoded);
@@ -35,11 +35,11 @@ namespace CirzzarCurr.Services
             return Image.Load(memoryStream);
         }
 
-        public string EncodeImage(Image image)
+        public string? EncodeImage(Image? image)
         {
             if (image == null)
             {
-                throw new ArgumentNullException(nameof(image));
+                return null;
             }
 
             using MemoryStream memoryStream = new();

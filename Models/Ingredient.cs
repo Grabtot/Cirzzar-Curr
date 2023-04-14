@@ -5,7 +5,7 @@ namespace CirzzarCurr.Models
     {
         public int Id { get; protected set; }
         public string Name { get; set; }
-        public Image Image { get; set; }
+        public Image? Image { get; set; }
         public List<Pizza> Pizzas { get; set; } = new List<Pizza>();
         public Ingredient()
         {
