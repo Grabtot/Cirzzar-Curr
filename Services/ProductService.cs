@@ -1,6 +1,7 @@
 ﻿using CirzzarCurr.Models;
 using CirzzarCurr.Models.Enums;
 using CirzzarCurr.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CirzzarCurr.Services
 {
@@ -31,8 +32,10 @@ namespace CirzzarCurr.Services
 
         public async Task<Product> AddProductAsync(Product product)
         {
-            return await _productRepository.AddAsync(product);
+            Product newProduct = product is Pizza pizza ? await _ingredientsRepository.GetPizzaWithDbIngredientsAsync(pizza) : product;
+            return await _productRepository.AddAsync(newProduct);
         }
+
 
         public async Task<Product> UpdateProductAsync(Product product)
         {

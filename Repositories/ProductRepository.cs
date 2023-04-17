@@ -11,7 +11,20 @@ namespace CirzzarCurr.Repositories
 
         public async Task<IEnumerable<TProduct>> GetByTypeAsync<TProduct>(ProductType type) where TProduct : Product
         {
-            return (await _context.Products.Where(prod => prod.Type == type).ToListAsync()).OfType<TProduct>();
+            if (typeof(TProduct) == typeof(Pizza))
+            {
+                return (await _context.Products
+                                      .OfType<Pizza>()
+                                      .Where(prod => prod.Type == type)
+                                      .Include(prod => prod.Ingredients)
+                                      .ToListAsync())
+                        .OfType<TProduct>();
+            }
+
+            return (await _context.Products
+                                  .Where(prod => prod.Type == type)
+                                  .ToListAsync())
+                    .OfType<TProduct>();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using CirzzarCurr.Models.Enums;
-
+using System.Text.Json.Serialization;
 
 namespace CirzzarCurr.Models
 {
@@ -31,7 +31,8 @@ namespace CirzzarCurr.Models
             Size = 0;
             Image = new Image<Rgba32>(1, 1);
         }
-        protected Product(decimal price, string name, int? size, Image image, ProductType type)
+        [JsonConstructor]
+        public Product(decimal price, string name, int? size, Image? image, ProductType type)
         {
             MinimalPrice = price;
             Name = name;
@@ -39,7 +40,7 @@ namespace CirzzarCurr.Models
             Image = image;
             Type = type;
         }
-        protected Product(ProductType type) : this()
+        public Product(ProductType type) : this()
         {
             Type = type;
         }

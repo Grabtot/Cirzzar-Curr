@@ -1,12 +1,14 @@
 ﻿using CirzzarCurr.Models.Enums;
+using System.Text.Json.Serialization;
 
 namespace CirzzarCurr.Models
 {
     public class Pizza : Product
     {
-        public Pizza(decimal price, string name, int? size, Image image, PizzaSize pizzaSize) : base(price, name, size, image, ProductType.Pizza)
+        [JsonConstructor]
+        public Pizza(decimal price, string name, int? size, Image image) : base(price, name, size, image, ProductType.Pizza)
         {
-            PizzaSize = pizzaSize;
+            PizzaSize = PizzaSize.Small;
         }
         public Pizza() : base(ProductType.Pizza) { }
 

@@ -1,4 +1,6 @@
 ﻿
+using System.Text.Json.Serialization;
+
 namespace CirzzarCurr.Models
 {
     public class Ingredient : IEntity<int>
@@ -6,6 +8,7 @@ namespace CirzzarCurr.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public Image? Image { get; set; }
+        [JsonIgnore]
         public List<Pizza> Pizzas { get; set; } = new List<Pizza>();
         public Ingredient()
         {
