@@ -10,25 +10,12 @@ const AddPizza = ({ onPizzaAdded }) => {
     setPizza({ ...pizza, [name]: value });
   }
 
-  const handleIngredientChange = (e) => {
-    const { checked, value } = e.target;
 
-    if (checked) {
-      setPizza((prevPizza) => ({
-        ...prevPizza,
-        ingredients: [...prevPizza.ingredients, value],
-      }));
-    } else {
-      setPizza((prevPizza) => ({
-        ...prevPizza,
-        ingredients: prevPizza.ingredients.filter((ing) => ing !== value),
-      }));
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addProduct(pizza);
+    const pizzaWithType = { ...pizza, $type: 'CirzzarCurr.Models.Pizza, CirzzarCurr' };
+    addProduct(pizzaWithType);
     onPizzaAdded();
     console.log(pizza);
   }
@@ -42,8 +29,8 @@ const AddPizza = ({ onPizzaAdded }) => {
         </label>
         <br />
         <label>
-          Count:
-          <input type="number" name="count" value={pizza.count} onChange={handleChange} />
+          Price:
+          <input type="number" name="price" value={pizza.price} onChange={handleChange} />
         </label>
         <br />
         <label>
@@ -51,17 +38,7 @@ const AddPizza = ({ onPizzaAdded }) => {
           <input type="number" name="size" value={pizza.size} onChange={handleChange} />
         </label>
         <br />
-        <label>
-          Pizza Size:
-          <select name="pizzaSize" value={pizza.pizzaSize} onChange={handleChange}>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
-            <option value="ExtraLarge">Extra Large</option>
-          </select>
-        </label>
-        <br />
-        <IngredientsSelect onChange={handleIngredientChange} />
+        <IngredientsSelect onChange={handleChange} />
         <br />
         <button type="submit">Add Pizza</button>
       </form>
@@ -70,12 +47,11 @@ const AddPizza = ({ onPizzaAdded }) => {
 }
 
 const defaultPizza = {
-  name: "Default Pizza",
-  count: 1,
-  size: 1,
+  name: "Pepperoni",
+  price: 100,
+  size: 200,
   image: null,
-  type: "Pizza",
-  pizzaSize: "Medium",
+  type: 0,
   ingredients: [],
 }
 

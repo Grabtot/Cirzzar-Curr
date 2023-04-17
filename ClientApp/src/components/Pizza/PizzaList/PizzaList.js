@@ -8,7 +8,7 @@ const PizzaList = ({ pizzas, loading }) => {
 
   return (
     <div>
-      {pizzas.map((pizza) => (
+      {pizzas.length === 0 ? <p>No pizzas</p> : pizzas.map((pizza) => (
         <PizzaItem key={pizza.id} pizza={pizza} />
       ))}
     </div>
