@@ -14,25 +14,25 @@ namespace CirzzarCurr.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync() => await _dbSet.ToListAsync();
 
-        public async Task<TEntity> GetByIdAsync(TId id) => await _dbSet.FindAsync(id)
+        public virtual async Task<TEntity> GetByIdAsync(TId id) => await _dbSet.FindAsync(id)
             ?? throw new IndexOutOfRangeException();
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public virtual async Task<TEntity> UpdateAsync(TEntity entity)
         {
             entity = _dbSet.Update(entity).Entity;
             await _context.SaveChangesAsync();
             return entity;
         }
-        public async Task DeleteByIdAsync(TId id)
+        public virtual async Task DeleteByIdAsync(TId id)
         {
             _dbSet.Remove(await GetByIdAsync(id));
             await _context.SaveChangesAsync();

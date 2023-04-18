@@ -4,6 +4,7 @@ using CirzzarCurr.Models.Enums;
 using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using System;
 
 
 namespace Tests
@@ -13,15 +14,16 @@ namespace Tests
         [Fact]
         public async Task Get_ListOfProducts()
         {
+            //Arrange
             Mock<IProductService> mockService = new();
             mockService.Setup(service => service.GetAllProductsAsync())
                 .ReturnsAsync(GetTestProducts());
             ProductsController controller = new(mockService.Object);
 
-
+            // Act
             ActionResult<IEnumerable<Product>> result = await controller.Get();
 
-
+            // Assert
             OkObjectResult okResult = Assert.IsType<OkObjectResult>(result.Result);
             IEnumerable<Product> products = Assert.IsAssignableFrom<IEnumerable<Product>>(okResult.Value);
             Assert.Equal(2, products.Count());
@@ -30,14 +32,16 @@ namespace Tests
         [Fact]
         public async Task Get_ListOfPizza()
         {
+            // Arrange
             Mock<IProductService> mockService = new();
             mockService.Setup(service => service.GetProductsByTypeAsync<Pizza>(ProductType.Pizza))
                  .ReturnsAsync(GetTestProducts().OfType<Pizza>().ToList());
             ProductsController controller = new(mockService.Object);
 
-
+            // Act
             ActionResult<IEnumerable<Pizza>> result = await controller.GetPizzas();
 
+            // Assert
             OkObjectResult okResult = Assert.IsType<OkObjectResult>(result.Result);
             IEnumerable<Pizza> pizzas = Assert.IsAssignableFrom<IEnumerable<Pizza>>(okResult.Value);
             Assert.Equal(2, pizzas.Count());

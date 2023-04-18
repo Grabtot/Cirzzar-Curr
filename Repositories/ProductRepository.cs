@@ -26,5 +26,15 @@ namespace CirzzarCurr.Repositories
                                   .ToListAsync())
                     .OfType<TProduct>();
         }
+
+        public override async Task<Product> GetByIdAsync(int id)
+        {
+            Product product = await base.GetByIdAsync(id);
+
+            Pizza? pizzaWithIngredients = await _dbSet.OfType<Pizza>()
+                                            .Include(p => p.Ingredients)
+                                            .SingleOrDefaultAsync(p => p.Id == id);
+            return pizzaWithIngredients ?? product;
+        }
     }
 }
