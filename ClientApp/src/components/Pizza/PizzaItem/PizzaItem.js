@@ -1,26 +1,30 @@
 import React from 'react';
+import styles from './PizzaItem.module.scss'
 
-const PizzaItem = ({ pizza }) => {
-  const { name, size, price, ingredients } = pizza;
+const PizzaItem = ({ className, pizza, onEdit, onDelete }) => {
+  const { id, name, size, price, ingredients } = pizza;
 
   return (
-    <div className="pizza-item">
-      <h3>{name}</h3>
-      <p>
-        Size: <strong>{size}</strong>
-      </p>
-      <p>
-        Price: <strong>${price}</strong>
-      </p>
-      <p>
-        Ingredients:{' '}
+    <tr className={className}>
+      <td className={styles["table-cell"]}>{name}</td>
+      <td className={styles["table-cell"]}>{size}</td>
+      <td className={styles["table-cell"]}>${price}</td>
+      <td className={styles["table-cell"]}>
         {ingredients.length > 0 ? (
-          ingredients.map(ingredient => ingredient.name).join(', ')
+          ingredients.map((ingredient) => ingredient.name).join(', ')
         ) : (
           <em>No ingredients selected</em>
         )}
-      </p>
-    </div>
+      </td>
+      <td className={`${styles.actions} ${styles["table-cell"]}`}>
+        <button className={`${styles["action-button"]} ${styles.edit}`} onClick={() => onEdit(pizza)}>
+          Edit
+        </button>
+        <button className={`${styles["action-button"]} ${styles.delete}`} onClick={() => onDelete(id)}>
+          Delete
+        </button>
+      </td>
+    </tr>
   );
 };
 

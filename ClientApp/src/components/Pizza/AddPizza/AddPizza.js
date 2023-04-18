@@ -22,6 +22,7 @@ const AddPizza = ({ onPizzaAdded }) => {
 
   return (
     <div>
+      <h3>Add New Pizza</h3>
       <form onSubmit={handleSubmit}>
         <label>
           Name:

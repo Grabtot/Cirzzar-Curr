@@ -1,0 +1,28 @@
+.pizza-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 24px;
+}
+
+.table-header {
+  border-bottom: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.table-header {
+  font-weight: bold;
+  background-color: #f1f1f1;
+}
+
+.table-row {
+  border-bottom: 1px solid #ccc;
+
+  &:hover {
+    background-color: #f5f5f5;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
