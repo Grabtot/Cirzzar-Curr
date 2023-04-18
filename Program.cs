@@ -1,15 +1,19 @@
 using CirzzarCurr.Data;
 using CirzzarCurr.Models;
+
+using CirzzarCurr.Repositories;
+
 using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("AzureConnection");
+
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+    ?? builder.Configuration.GetConnectionString("AzureConnection");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -25,7 +29,15 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddScoped<IImageService, ImageService>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IIngredientsRepository, IngredientsRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new ProductJsonConverter());
+});
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

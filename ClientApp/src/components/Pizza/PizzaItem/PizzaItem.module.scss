@@ -1,0 +1,29 @@
+.actions {
+  margin-left: 5px;
+
+  .edit {
+    color: #007bff;
+  }
+
+  .delete {
+    color: #dc3545;
+  }
+}
+
+.table-cell {
+  padding: 8px;
+  text-align: left;
+}
+
+.action-button {
+  padding: 4px 8px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
+}

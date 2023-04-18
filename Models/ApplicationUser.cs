@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CirzzarCurr.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser, IEntity<string>
     {
 
         [PersonalData]
@@ -19,5 +19,8 @@ namespace CirzzarCurr.Models
 
         [PersonalData]
         public List<Order> Orders { get; protected set; } = new();
+
+        public List<Product> Cart { get; protected set; } = new();
+
     }
 }

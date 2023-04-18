@@ -1,16 +1,15 @@
-﻿namespace CirzzarCurr.Models
+namespace CirzzarCurr.Models
 {
-    public class Address
+    public class Address : IEntity<int>
     {
-        public int Id { get; protected set; }
+        public int Id { get; set; }
+        public string Street { get; set; }
+        public string City { get; set; }
+        public int House { get; set; }
+        public int? Floor { get; set; }
+        public int? Flat { get; set; }
 
-        public string Street { get; protected set; }
-        public string City { get; protected set; }
-        public int House { get; protected set; }
-        public int? Floor { get; protected set; }
-        public int? Flat { get; protected set; }
-
-        public List<ApplicationUser> Users { get; protected set; } = new();
+        public List<ApplicationUser> Users { get; set; } = new();
         public Address()
         {
             Street = string.Empty;

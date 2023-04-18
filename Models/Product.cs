@@ -1,9 +1,10 @@
 ﻿using CirzzarCurr.Models.Enums;
 
+using System.Text.Json.Serialization;
 
 namespace CirzzarCurr.Models
 {
-    public abstract class Product
+    public abstract class Product : IEntity<int>
     {
         private decimal _minimalPrice;
         public decimal MinimalPrice
@@ -18,10 +19,11 @@ namespace CirzzarCurr.Models
             }
         }
         public virtual decimal Price => _minimalPrice;
-        public int Id { get; protected set; }
+        public int Id { get; set; }
         public string Name { get; set; }
+        public int Count { get; set; }
         public int? Size { get; set; }
-        public Image Image { get; set; }
+        public Image? Image { get; set; }
 
         public ProductType Type { get; set; }
         public Product()
@@ -30,7 +32,8 @@ namespace CirzzarCurr.Models
             Size = 0;
             Image = new Image<Rgba32>(1, 1);
         }
-        protected Product(decimal price, string name, int? size, Image image, ProductType type)
+        [JsonConstructor]
+        public Product(decimal price, string name, int? size, Image? image, ProductType type)
         {
             MinimalPrice = price;
             Name = name;
@@ -38,7 +41,9 @@ namespace CirzzarCurr.Models
             Image = image;
             Type = type;
         }
-        protected Product(ProductType type) : this()
+
+        public Product(ProductType type) : this()
+
         {
             Type = type;
         }
