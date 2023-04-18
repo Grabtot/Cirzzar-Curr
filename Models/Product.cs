@@ -1,4 +1,5 @@
 ﻿using CirzzarCurr.Models.Enums;
+
 using System.Text.Json.Serialization;
 
 namespace CirzzarCurr.Models
@@ -40,7 +41,9 @@ namespace CirzzarCurr.Models
             Image = image;
             Type = type;
         }
+
         public Product(ProductType type) : this()
+
         {
             Type = type;
         }

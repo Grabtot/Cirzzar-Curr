@@ -11,6 +11,7 @@ namespace CirzzarCurr.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
+
         private readonly IImageService _imageService;
         public DbSet<Product> Products { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
@@ -19,6 +20,7 @@ namespace CirzzarCurr.Data
         private readonly ValueConverter<DateOnly, DateTime> _dateOnlyConverter = new(
               dateOnly => dateOnly.ToDateTime(TimeOnly.MinValue),
               dateTime => DateOnly.FromDateTime(dateTime));
+
 
 
 
@@ -42,7 +44,9 @@ namespace CirzzarCurr.Data
                 .HasConversion(_dateOnlyConverter);
 
 
+
             ValueConverter<Image?, string?> imageConverter = new(
+
                    image => _imageService.EncodeImage(image),
                    encoded => _imageService.DecodeImage(encoded));
 

@@ -1,5 +1,6 @@
 ﻿namespace CirzzarCurr.Models
 {
+
     public class Order : IEntity<int>
     {
         public int Id { get; set; }

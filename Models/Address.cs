@@ -1,4 +1,4 @@
-﻿namespace CirzzarCurr.Models
+namespace CirzzarCurr.Models
 {
     public class Address : IEntity<int>
     {

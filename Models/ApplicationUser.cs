@@ -19,6 +19,8 @@ namespace CirzzarCurr.Models
 
         [PersonalData]
         public List<Order> Orders { get; protected set; } = new();
+
         public List<Product> Cart { get; protected set; } = new();
+
     }
 }

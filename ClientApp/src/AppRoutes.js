@@ -7,6 +7,7 @@ const AppRoutes = [
     index: true,
     element: <Home />
   },
+
   {
     path: "/menu/pizza",
     element: <Pizza />
