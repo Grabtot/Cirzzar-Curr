@@ -3,6 +3,11 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:AzureConnection"
+    },
+    "mssql2": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:DefaultConnection"
     }
   }
 }
