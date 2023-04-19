@@ -16,7 +16,7 @@ namespace CirzzarCurr.Models
                 switch (productType)
                 {
                     case ProductType.Pizza:
-                        return JsonSerializer.Deserialize<Pizza>(jsonObject.ToString(), options);
+                        return JsonSerializer.Deserialize<Pizza>(jsonObject.ToString(), options) ?? new Pizza();
                     // Добавьте здесь обработку других типов продуктов, если необходимо
                     default:
                         throw new NotSupportedException($"Неизвестный тип продукта: {productType}");
