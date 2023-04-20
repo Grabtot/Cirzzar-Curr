@@ -6,13 +6,12 @@ using CirzzarCurr.Repositories;
 using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using System.Collections;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+var connectionString = Environment.GetEnvironmentVariable("SQLAZURECONNSTR_CONNECTION_STRING")
     ?? builder.Configuration.GetConnectionString("AzureConnection");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
