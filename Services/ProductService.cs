@@ -1,7 +1,6 @@
 ﻿using CirzzarCurr.Models;
 using CirzzarCurr.Models.Enums;
 using CirzzarCurr.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace CirzzarCurr.Services
 {
@@ -55,6 +54,11 @@ namespace CirzzarCurr.Services
         public async Task<IEnumerable<Ingredient>> GetAllIngredientsAsync()
         {
             return await _ingredientsRepository.GetAllAsync();
+        }
+
+        public string[] GetProductTypes()
+        {
+            return Enum.GetNames<ProductType>();
         }
     }
 

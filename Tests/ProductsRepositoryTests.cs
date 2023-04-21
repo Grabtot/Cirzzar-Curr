@@ -51,6 +51,7 @@ namespace Tests
             }
         }
 
+
         [Fact]
         public async Task UpdateProduct()
         {
@@ -85,7 +86,7 @@ namespace Tests
         }
 
         [Fact]
-        public async Task DeleteProductTest()
+        public async Task DeleteProduct()
         {
             // Arrange
             DbContextOptions<ApplicationDbContext> options = GetInMemoryDbContextOptions();

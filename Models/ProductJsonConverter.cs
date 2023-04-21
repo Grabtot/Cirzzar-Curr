@@ -6,6 +6,8 @@ namespace CirzzarCurr.Models
 {
     public class ProductJsonConverter : JsonConverter<Product>
     {
+
+
         public override Product Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             using var jsonDocument = JsonDocument.ParseValue(ref reader);
@@ -17,8 +19,8 @@ namespace CirzzarCurr.Models
                 throw new InvalidOperationException("Product must contain a type");
             }
 
-            string productTypeStr = typeProperty.Deserialize<string>() ?? throw new JsonException("Failed to deserialize ProductType");
-            ProductType productType = Enum.Parse<ProductType>(productTypeStr);
+            // Используйте JsonSerializer.Deserialize вместо Enum.Parse
+            ProductType productType = JsonSerializer.Deserialize<ProductType>(typeProperty.GetRawText(), options);
 
             return productType switch
             {
@@ -31,10 +33,7 @@ namespace CirzzarCurr.Models
 
         public override void Write(Utf8JsonWriter writer, Product value, JsonSerializerOptions options)
         {
-            if (!options.Converters.OfType<EnumJsonConverter<ProductType>>().Any())
-            {
-                options.Converters.Add(new EnumJsonConverter<ProductType>());
-            }
+
             JsonSerializer.Serialize(writer, (object)value, options);
         }
     }

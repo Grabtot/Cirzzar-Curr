@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace CirzzarCurr.Models
 {
-    internal class EnumJsonConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
+    public class EnumJsonConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
     {
         public override TEnum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -13,7 +13,8 @@ namespace CirzzarCurr.Models
 
         public override void Write(Utf8JsonWriter writer, TEnum value, JsonSerializerOptions options)
         {
-            writer.WriteStringValue(value.ToString());
+            writer.WriteStringValue(Enum.GetName(value));
         }
     }
+
 }

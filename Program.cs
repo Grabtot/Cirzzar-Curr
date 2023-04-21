@@ -1,6 +1,6 @@
 using CirzzarCurr.Data;
 using CirzzarCurr.Models;
-
+using CirzzarCurr.Models.Enums;
 using CirzzarCurr.Repositories;
 
 using CirzzarCurr.Services;
@@ -36,6 +36,8 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new ProductJsonConverter());
+    options.JsonSerializerOptions.Converters.Add(new EnumJsonConverter<ProductType>());
+    options.JsonSerializerOptions.Converters.Add(new EnumJsonConverter<PizzaSize>());
 });
 
 builder.Services.AddRazorPages();
