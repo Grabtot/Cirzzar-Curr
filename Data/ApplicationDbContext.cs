@@ -60,7 +60,10 @@ namespace CirzzarCurr.Data
 
             builder.Entity<Product>()
                 .HasDiscriminator<ProductType>("ProductType")
-                .HasValue<Pizza>(ProductType.Pizza);
+                .HasValue<Pizza>(ProductType.Pizza)
+                .HasValue<Dessert>(ProductType.Dessert)
+                .HasValue<Beverage>(ProductType.Beverage);
+
 
         }
     }
