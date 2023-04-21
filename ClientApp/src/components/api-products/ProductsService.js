@@ -1,4 +1,5 @@
 import { ApiProductsRoutes } from "./ApiProductsRoutes";
+import authService from "../api-authorization/AuthorizeService";
 
 export const getAllProducts = async () => {
   const response = await fetch(ApiProductsRoutes.AllProducts);
@@ -7,6 +8,14 @@ export const getAllProducts = async () => {
   const data = JSON.parse(text);
   return data;
 };
+
+export const getProductTypes = async () => {
+  const response = await fetch(ApiProductsRoutes.ProductTypes);
+  const text = await response.text();
+  console.log("getProductTypes response:", text);
+  const data = JSON.parse(text);
+  return data;
+}
 
 export const getPizzaProducts = async () => {
   const response = await fetch(ApiProductsRoutes.Pizza);
@@ -44,11 +53,18 @@ export const getProductById = async (id) => {
 };
 
 export const addProduct = async (product) => {
+  const token = await authService.getAccessToken();
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+
   const response = await fetch(ApiProductsRoutes.AllProducts, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(product),
   });
   const text = await response.text();
@@ -86,8 +102,15 @@ export const updateProduct = async (product) => {
 };
 
 export const deleteProduct = async (id) => {
+  const token = await authService.getAccessToken();
+  const headers = {};
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
   const response = await fetch(`${ApiProductsRoutes.AllProducts}/${id}`, {
     method: "DELETE",
+    headers: headers
   });
   const text = await response.text();
   console.log("deleteProduct response:", text);
