@@ -1,5 +1,6 @@
 import ApiAuthorzationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { Home } from "./components/Home";
+import ProductsManagement from './components/ProductsManagement/ProductsManagement';
 
 const AppRoutes = [
   {

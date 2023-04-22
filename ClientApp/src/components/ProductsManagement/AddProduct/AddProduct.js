@@ -10,6 +10,25 @@ const AddProduct = ({ onAdd }) => {
     setProduct({ ...product, [name]: value });
   }
 
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const base64Image = await toBase64(file);
+      setProduct({ ...product, image: base64Image });
+    } else {
+      setProduct({ ...product, image: null });
+    }
+  }
+
+  const toBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+  }
+
   useEffect(() => {
     const fetchProductTypes = async () => {
       const productTypes = await getProductTypes();
@@ -41,7 +60,11 @@ const AddProduct = ({ onAdd }) => {
         <label>
           Size:
           <input type="number" name="size" value={product.size} onChange={handleChange} />
-
+        </label>
+        <br />
+        <label>
+          Image:
+          <input type="file" name="image" accept="image/*" onChange={handleImageChange} />
         </label>
         <br />
         <label>
