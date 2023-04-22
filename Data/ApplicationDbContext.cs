@@ -43,21 +43,6 @@ namespace CirzzarCurr.Data
                 .Property(u => u.RegistrationDate)
                 .HasConversion(_dateOnlyConverter);
 
-
-
-            ValueConverter<Image?, string?> imageConverter = new(
-
-                   image => _imageService.EncodeImage(image),
-                   encoded => _imageService.DecodeImage(encoded));
-
-            builder.Entity<Product>()
-                .Property(prod => prod.Image)
-                .HasConversion(imageConverter);
-            builder.Entity<Ingredient>()
-                .Property(ing => ing.Image)
-                .HasConversion(imageConverter);
-
-
             builder.Entity<Product>()
                 .HasDiscriminator<ProductType>("ProductType")
                 .HasValue<Pizza>(ProductType.Pizza)

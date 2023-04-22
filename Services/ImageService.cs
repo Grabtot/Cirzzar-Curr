@@ -1,8 +1,4 @@
-﻿using CirzzarCurr.Models.Enums;
-using SixLabors.ImageSharp.Advanced;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Formats.Png;
-using System.IO;
+﻿using SixLabors.ImageSharp.Formats.Png;
 
 namespace CirzzarCurr.Services
 {
@@ -23,8 +19,43 @@ namespace CirzzarCurr.Services
             _basePath = Path.Combine(environment.ContentRootPath, relativePath);
         }
 
+        public string? GetEncodedByPath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return null;
+            }
+            if (!File.Exists(path))
+            {
+                throw new FileNotFoundException("File not found", path);
+            }
+            Image image = Image.Load(path);
+            return Encode(image);
+        }
 
-        public Image? DecodeImage(string? encoded)
+        public string GetPath(string folder, string name)
+        {
+            return Path.Combine(_basePath, folder, name + ".png");
+        }
+
+        public void Save(string base64Image, string path)
+        {
+            Image image = Decode(base64Image);
+            Save(image, path);
+        }
+
+        public void Save(Image image, string path)
+        {
+            image.Save(path);
+        }
+        public string Save(string base64Image, string folder, string name)
+        {
+            string path = GetPath(folder, name);
+            Save(base64Image, path);
+            return path;
+        }
+
+        public Image? Decode(string? encoded)
         {
             if (string.IsNullOrEmpty(encoded))
             {
@@ -36,13 +67,11 @@ namespace CirzzarCurr.Services
             return Image.Load(memoryStream);
         }
 
-
-        public string? EncodeImage(Image? image)
+        public string? Encode(Image? image)
         {
             if (image == null)
             {
                 return null;
-
             }
 
             using MemoryStream memoryStream = new();
@@ -51,25 +80,10 @@ namespace CirzzarCurr.Services
             return Convert.ToBase64String(imageData);
         }
 
-        public Image GetImageByPath(string path)
+        public void Delete(string folder, string name)
         {
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException("File not found", path);
-            }
-            return Image.Load(path);
+            string path = GetPath(folder, name);
+            File.Delete(path);
         }
-
-        public string GetImagePath(Image image, string folder, string name)
-        {
-            string imagePath = Path.Combine(_basePath, folder, name + ".png");
-            if (!File.Exists(imagePath))
-            {
-                SaveImage(image, imagePath);
-            }
-            return imagePath;
-        }
-
-        public void SaveImage(Image image, string path) => image.Save(path);
     }
 }

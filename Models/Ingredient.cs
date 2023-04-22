@@ -8,14 +8,21 @@ namespace CirzzarCurr.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Image? Image { get; set; }
+        public string? Image { get; set; }
         [JsonIgnore]
         public List<Pizza> Pizzas { get; set; } = new List<Pizza>();
         public Ingredient()
         {
             Name = string.Empty;
-            Image = new Image<Rgba32>(1, 1);
+            Image = string.Empty;
         }
+
+        public Ingredient(string name, string? image)
+        {
+            Name = name;
+            Image = image;
+        }
+
         public override string ToString()
         {
             return Name;

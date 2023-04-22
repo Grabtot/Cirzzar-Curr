@@ -34,7 +34,7 @@ namespace CirzzarCurr.Data.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("AddressApplicationUser");
+                    b.ToTable("AddressApplicationUser", (string)null);
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.Address", b =>
@@ -64,7 +64,7 @@ namespace CirzzarCurr.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.ApplicationUser", b =>
@@ -155,7 +155,7 @@ namespace CirzzarCurr.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.Order", b =>
@@ -190,7 +190,7 @@ namespace CirzzarCurr.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.Product", b =>
@@ -235,7 +235,7 @@ namespace CirzzarCurr.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
 
                     b.HasDiscriminator<int>("ProductType");
                 });
@@ -323,7 +323,7 @@ namespace CirzzarCurr.Data.Migrations
 
                     b.HasIndex("Use");
 
-                    b.ToTable("Keys");
+                    b.ToTable("Keys", (string)null);
                 });
 
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.PersistedGrant", b =>
@@ -393,7 +393,7 @@ namespace CirzzarCurr.Data.Migrations
 
                     b.HasIndex("PizzasId");
 
-                    b.ToTable("IngredientPizza");
+                    b.ToTable("IngredientPizza", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -536,15 +536,11 @@ namespace CirzzarCurr.Data.Migrations
             modelBuilder.Entity("CirzzarCurr.Models.Beverage", b =>
                 {
                     b.HasBaseType("CirzzarCurr.Models.Product");
-
-                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.Dessert", b =>
                 {
                     b.HasBaseType("CirzzarCurr.Models.Product");
-
-                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.Pizza", b =>

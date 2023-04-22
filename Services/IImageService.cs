@@ -1,16 +1,17 @@
-﻿using CirzzarCurr.Models.Enums;
-
-namespace CirzzarCurr.Services
+﻿namespace CirzzarCurr.Services
 {
 
 
     public interface IImageService
     {
-        Image? DecodeImage(string? encodedImage);
-        string? EncodeImage(Image? image);
-        Image GetImageByPath(string path);
-        string GetImagePath(Image image, string folder, string name);
-        void SaveImage(Image image, string path);
+        Image? Decode(string? encodedImage);
+        string? Encode(Image? image);
+        string? GetEncodedByPath(string path);
+        string GetPath(string folder, string name);
+        void Save(Image image, string path);
+        string Save(string base64Image, string folder, string name);
+        void Save(string base64Image, string path);
+        void Delete(string folder, string name);
     }
 
 
