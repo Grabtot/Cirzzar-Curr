@@ -1,5 +1,4 @@
 ﻿using CirzzarCurr.Models.Enums;
-
 using System.Text.Json.Serialization;
 
 

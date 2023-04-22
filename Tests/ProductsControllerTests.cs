@@ -4,7 +4,6 @@ using CirzzarCurr.Models.Enums;
 using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
 
 
 namespace Tests
@@ -26,7 +25,7 @@ namespace Tests
             // Assert
             OkObjectResult okResult = Assert.IsType<OkObjectResult>(result.Result);
             IEnumerable<Product> products = Assert.IsAssignableFrom<IEnumerable<Product>>(okResult.Value);
-            Assert.Equal(2, products.Count());
+            Assert.Equal(3, products.Count());
         }
 
         [Fact]
@@ -80,7 +79,8 @@ namespace Tests
             return new List<Product>
             {
                 new Pizza { Id = 1, Name = "Pizza 1" },
-                new Pizza { Id = 2, Name = "Pizza 2" }
+                new Pizza { Id = 2, Name = "Pizza 2" },
+                new Dessert { Id = 3,Name= "Dessert 1"}
             };
         }
     }

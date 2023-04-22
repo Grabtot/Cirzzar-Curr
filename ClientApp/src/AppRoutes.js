@@ -1,6 +1,5 @@
 import ApiAuthorzationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { Home } from "./components/Home";
-import Pizza from './components/Pizza/Pizza';
 
 const AppRoutes = [
   {
@@ -9,8 +8,9 @@ const AppRoutes = [
   },
 
   {
-    path: "/menu/pizza",
-    element: <Pizza />
+    path: "/menu/management/products",
+    requireAuth: true,
+    element: <ProductsManagement />
   },
   ...ApiAuthorzationRoutes
 ];

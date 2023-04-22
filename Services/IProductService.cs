@@ -13,5 +13,6 @@ namespace CirzzarCurr.Services
         Task<Product> GetProductByIdAsync(int id);
         Task<IEnumerable<TProduct>> GetProductsByTypeAsync<TProduct>(ProductType type) where TProduct : Product;
         Task<Product> UpdateProductAsync(Product product);
+        string[] GetProductTypes();
     }
 }
