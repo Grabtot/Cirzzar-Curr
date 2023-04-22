@@ -29,7 +29,7 @@ namespace CirzzarCurr.Services
             {
                 throw new FileNotFoundException("File not found", path);
             }
-            Image image = Image.Load(path);
+            using Image image = Image.Load(path);
             return Encode(image);
         }
 
@@ -40,31 +40,21 @@ namespace CirzzarCurr.Services
 
         public void Save(string base64Image, string path)
         {
-            Image image = Decode(base64Image);
-            Save(image, path);
+            byte[] imageBytes = Convert.FromBase64String(FixBase64ForImage(base64Image));
+            File.WriteAllBytes(path, imageBytes);
         }
 
-        public void Save(Image image, string path)
-        {
-            image.Save(path);
-        }
         public string Save(string base64Image, string folder, string name)
         {
-            string path = GetPath(folder, name);
+
+            string fileExtension = GetFileExtensionFromBase64(base64Image);
+            string path = Path.Combine(_basePath, folder, $"{name}.{fileExtension}");
+            if (!Directory.Exists(Path.GetDirectoryName(path)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
+            }
             Save(base64Image, path);
             return path;
-        }
-
-        public Image? Decode(string? encoded)
-        {
-            if (string.IsNullOrEmpty(encoded))
-            {
-                return null;
-            }
-
-            byte[] imageData = Convert.FromBase64String(encoded);
-            using MemoryStream memoryStream = new(imageData);
-            return Image.Load(memoryStream);
         }
 
         public string? Encode(Image? image)
@@ -83,7 +73,41 @@ namespace CirzzarCurr.Services
         public void Delete(string folder, string name)
         {
             string path = GetPath(folder, name);
-            File.Delete(path);
+            if (File.Exists(path))
+                File.Delete(path);
+        }
+
+        private string GetFileExtensionFromBase64(string base64Image)
+        {
+            var data = base64Image[..100];
+            if (data.Contains("data:image/jpeg;base64,"))
+            {
+                return "jpg";
+            }
+            else if (data.Contains("data:image/png;base64,"))
+            {
+                return "png";
+            }
+            else
+            {
+                throw new ArgumentException("Invalid image format");
+            }
+        }
+
+        private string FixBase64ForImage(string image)
+        {
+            var sb = new System.Text.StringBuilder(image);
+            sb.Replace("\r", "").Replace("\n", "").Replace(" ", "");
+
+            if (sb[0] != '/')
+            {
+                int idx = sb.ToString().IndexOf("base64,");
+                if (idx > 0)
+                {
+                    sb.Remove(0, idx + 7);
+                }
+            }
+            return sb.ToString();
         }
     }
 }
