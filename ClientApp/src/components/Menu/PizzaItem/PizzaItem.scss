@@ -1,0 +1,58 @@
+.pizza {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  width: calc(50% - 15px);
+  border-radius: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+
+  .image {
+    width: 100%;
+    max-height: 300px;
+    max-width: 300px;
+    height: 100vh;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .name {
+    font-size: large;
+    margin-bottom: 5px;
+  }
+
+  .sizes {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    justify-content: center;
+
+    .size {
+      border: 1px solid black;
+      padding: 5px 0;
+      width: 30%;
+      margin: 2px;
+      border-radius: 20px;
+      text-align: center;
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      &.selected {
+        background-color: gray;
+        color: white;
+      }
+
+      &:last-child {
+        width: 95%;
+      }
+    }
+  }
+
+  .pizza-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 10px;
+  }
+}

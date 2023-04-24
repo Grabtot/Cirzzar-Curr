@@ -1,5 +1,6 @@
 import ApiAuthorzationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { Home } from "./components/Home";
+import Menu from './components/Menu/Menu';
 import ProductDetails from './components/ProductsManagement/ProductDetails/ProductDetails';
 import ProductsManagement from './components/ProductsManagement/ProductsManagement';
 
@@ -16,6 +17,9 @@ const AppRoutes = [
   {
     path: "/menu/products/:id",
     element: <ProductDetails />
+  }, {
+    path: "/menu/pizza",
+    element: <Menu />
   },
   ...ApiAuthorzationRoutes
 ];

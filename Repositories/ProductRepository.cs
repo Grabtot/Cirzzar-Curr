@@ -14,11 +14,14 @@ namespace CirzzarCurr.Repositories
             if (typeof(TProduct) == typeof(Pizza))
             {
                 return (await _context.Products
-                                      .OfType<Pizza>()
-                                      .Where(prod => prod.Type == type)
-                                      .Include(prod => prod.Ingredients)
-                                      .ToListAsync())
-                        .OfType<TProduct>();
+                        .OfType<Pizza>()
+                        .Where(prod => prod.Type == type)
+                        .Include(prod => prod.Ingredients)
+                        .ToListAsync())
+                  .Cast<TProduct>()
+                  .ToList();
+
+
             }
 
             return (await _context.Products
