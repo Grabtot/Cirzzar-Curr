@@ -48,7 +48,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\" />
+    <Content Include="wwwroot\images\Product Image.png" />
+    <Content Include="wwwroot\images\Product.jpg" />
+    <Content Include="wwwroot\text.txt" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

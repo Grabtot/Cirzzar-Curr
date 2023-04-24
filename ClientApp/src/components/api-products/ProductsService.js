@@ -88,11 +88,19 @@ export const addIngredient = async (ingredient) => {
 };
 
 export const updateProduct = async (product) => {
+
+  const token = await authService.getAccessToken();
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  console.log(token);
   const response = await fetch(ApiProductsRoutes.AllProducts, {
     method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: headers,
     body: JSON.stringify(product),
   });
   const text = await response.text();

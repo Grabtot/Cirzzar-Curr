@@ -1,6 +1,14 @@
 .actions {
   margin-left: 5px;
 
+  .save {
+    color: #28a745;
+  }
+
+  .cancel {
+    color: #ffc107;
+  }
+
   .edit {
     color: #007bff;
   }

@@ -84,14 +84,11 @@ namespace CirzzarCurr.Services
             {
                 return "jpg";
             }
-            else if (data.Contains("data:image/png;base64,"))
+            else
             {
                 return "png";
             }
-            else
-            {
-                throw new ArgumentException("Invalid image format");
-            }
+
         }
 
         private string FixBase64ForImage(string image)

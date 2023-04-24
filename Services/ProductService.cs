@@ -19,27 +19,27 @@ namespace CirzzarCurr.Services
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
             List<Product> products = (List<Product>)await _productRepository.GetAllAsync();
-            //for (int i = 0; i < products.Count; i++)
-            //{
-            //    products[i].Image = _imageService.GetEncodedByPath(products[i].Image);
-            //}
+            for (int i = 0; i < products.Count; i++)
+            {
+                products[i].Image = _imageService.GetEncodedByPath(products[i].Image);
+            }
             return products;
         }
 
         public async Task<Product> GetProductByIdAsync(int id)
         {
             Product product = await _productRepository.GetByIdAsync(id);
-            //  product.Image = _imageService.GetEncodedByPath(product.Image);
+            product.Image = _imageService.GetEncodedByPath(product.Image);
             return product;
         }
 
         public async Task<IEnumerable<TProduct>> GetProductsByTypeAsync<TProduct>(ProductType type) where TProduct : Product
         {
             List<TProduct> products = (List<TProduct>)await _productRepository.GetByTypeAsync<TProduct>(type);
-            //  for (int i = 0; i < products.Count; i++)
-            // {
-            //      products[i].Image = _imageService.GetEncodedByPath(products[i].Image);
-            // }
+            for (int i = 0; i < products.Count; i++)
+            {
+                products[i].Image = _imageService.GetEncodedByPath(products[i].Image);
+            }
             return products;
         }
 
@@ -54,7 +54,10 @@ namespace CirzzarCurr.Services
 
         public async Task<Product> UpdateProductAsync(Product product)
         {
-            product.Image = _imageService.Save(product.Image, Enum.GetName(product.Type), product.Name);
+            if (!product.Image.Contains("images"))
+            {
+                product.Image = _imageService.Save(product.Image, Enum.GetName(product.Type), product.Name);
+            }
             return await _productRepository.UpdateAsync(product);
         }
 

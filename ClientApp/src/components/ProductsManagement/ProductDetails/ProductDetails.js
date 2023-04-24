@@ -11,21 +11,12 @@ const ProductDetails = () => {
   const { id } = useParams();
 
 
-  const formatImagePath = (imagePath) => {
-    const pathParts = imagePath.split(/[\\\/]/);
-    const relativePathIndex = pathParts.indexOf('wwwroot');
-    const relativePath = pathParts.slice(relativePathIndex).join('/');
-    return `/${relativePath}`;
-  };
-
-
-
   useEffect(() => {
     const fetchProduct = async () => {
       const fetchedProduct = await getProductById(id);
       setProduct(fetchedProduct);
       setLoading(false);
-      setImagePath(fetchedProduct.image ? formatImagePath(fetchedProduct.image) : '')
+      setImagePath(fetchedProduct.image);
     };
 
     fetchProduct();
@@ -42,14 +33,16 @@ const ProductDetails = () => {
       <p>Price: ${product.price}</p>
       <p>Type: {product.type}</p>
       {product.ingredients && (
-        <ol>
-          {product.ingredients.map((ingredient) => (
-            <li key={ingredient.id}>{ingredient.name}</li>
-          ))}
-        </ol>)}
-      {<img src={"https://localhost:7031" + imagePath} alt={product.name} />}
-      <p>Formated path{imagePath}</p>
-      <p>Not formated path {product.image}</p>
+        <p>Ingredients:
+          <ol>
+            {product.ingredients.map((ingredient) => (
+              <li key={ingredient.id}>{ingredient.name}</li>
+            ))}
+          </ol></p>)}
+      <img
+        src={`data:image/png;base64,${imagePath}`}
+        alt={product.name}
+        style={{ maxWidth: '300px', maxHeight: '300px' }} />
     </div>
   );
 };
