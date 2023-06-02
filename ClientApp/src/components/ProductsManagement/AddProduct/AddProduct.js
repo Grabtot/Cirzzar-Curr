@@ -5,6 +5,7 @@ import { getProductTypes } from '../../api-products/ProductsService';
 const AddProduct = ({ onAdd }) => {
   const [product, setProduct] = useState(defaultProduct);
   const [productTypes, setProductTypes] = useState([]);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });

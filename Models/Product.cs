@@ -22,7 +22,7 @@ namespace CirzzarCurr.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
-        public int? Size { get; set; }
+        public int Size { get; set; }
         public string? Image { get; set; }
 
         public ProductType Type { get; set; }
@@ -33,7 +33,7 @@ namespace CirzzarCurr.Models
             Image = string.Empty;
         }
         [JsonConstructor]
-        public Product(decimal price, string name, int? size, string? image, ProductType type)
+        public Product(decimal price, string name, int size, string? image, ProductType type)
         {
             MinimalPrice = price;
             Name = name;

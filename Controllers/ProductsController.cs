@@ -53,21 +53,21 @@ namespace CirzzarCurr.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+       // [Authorize]
         public async Task<ActionResult<Product>> AddProduct([FromBody] Product product)
         {
             return Ok(await _productService.AddProductAsync(product));
         }
 
         [HttpPost("pizza/ingredients")]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<Ingredient>> AddIngredient([FromBody] Ingredient ingredient)
         {
             return Ok(await _productService.AddIngredientAsync(ingredient));
         }
 
         [HttpPut]
-        [Authorize]
+       // [Authorize]
         public async Task<ActionResult<Product>> UpdateProduct([FromBody] Product product)
         {
             try
@@ -81,7 +81,7 @@ namespace CirzzarCurr.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+      //  [Authorize]
         public async Task<ActionResult> DeleteProduct(int id)
         {
             try

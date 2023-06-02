@@ -8,7 +8,7 @@ namespace CirzzarCurr.Models
     {
 
         [JsonConstructor]
-        public Pizza(decimal price, string name, int? size, string image) : base(price, name, size, image, ProductType.Pizza)
+        public Pizza(decimal price, string name, int size, string image) : base(price, name, size, image, ProductType.Pizza)
         {
             PizzaSize = PizzaSize.Small;
 

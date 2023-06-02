@@ -32,14 +32,14 @@ namespace Tests
 
             Pizza product = GetTestPizza();
             // Act
-            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object, imageServiceMock.Object))
+            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object))
             {
                 ProductRepository repo = new(context);
                 await repo.AddAsync(product);
             }
 
             // Assert
-            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object, imageServiceMock.Object))
+            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object))
             {
                 ProductRepository repo = new(context);
                 Product productFromDb = await repo.GetByIdAsync(1);
@@ -66,7 +66,7 @@ namespace Tests
             string updatedName = "UpdatedName";
 
             //Act
-            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object, imageServiceMock.Object))
+            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object))
             {
                 ProductRepository repository = new(context);
                 await repository.AddAsync(pizza);
@@ -75,7 +75,7 @@ namespace Tests
             }
 
             //Assert
-            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object, imageServiceMock.Object))
+            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object))
             {
                 ProductRepository repo = new(context);
                 Product productFromDb = await repo.GetByIdAsync(1);
@@ -97,7 +97,7 @@ namespace Tests
             Pizza pizza = GetTestPizza();
 
             // Act
-            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object, imageServiceMock.Object))
+            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object))
             {
                 ProductRepository repository = new(context);
                 await repository.AddAsync(pizza);
@@ -105,7 +105,7 @@ namespace Tests
             }
 
             // Assert
-            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object, imageServiceMock.Object))
+            using (ApplicationDbContext context = new(options, operationalStoreOptionsMock.Object))
             {
                 ProductRepository repo = new(context);
                 await Assert.ThrowsAsync<IndexOutOfRangeException>(async () => await repo.GetByIdAsync(pizza.Id));
