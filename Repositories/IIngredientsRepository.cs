@@ -1,4 +1,4 @@
-﻿using CirzzarCurr.Models;
+﻿using CirzzarCurr.Models.Products;
 
 namespace CirzzarCurr.Repositories
 {

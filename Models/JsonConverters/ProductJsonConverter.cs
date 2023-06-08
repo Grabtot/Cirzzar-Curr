@@ -1,8 +1,9 @@
 ﻿using CirzzarCurr.Models.Enums;
+using CirzzarCurr.Models.Products;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace CirzzarCurr.Models
+namespace CirzzarCurr.Models.JsonConverters
 {
     public class ProductJsonConverter : JsonConverter<Product>
     {
@@ -10,7 +11,7 @@ namespace CirzzarCurr.Models
 
         public override Product Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            using var jsonDocument = JsonDocument.ParseValue(ref reader);
+            using JsonDocument jsonDocument = JsonDocument.ParseValue(ref reader);
 
             JsonElement jsonObject = jsonDocument.RootElement;
 
@@ -19,7 +20,6 @@ namespace CirzzarCurr.Models
                 throw new InvalidOperationException("Product must contain a type");
             }
 
-            // Используйте JsonSerializer.Deserialize вместо Enum.Parse
             ProductType productType = JsonSerializer.Deserialize<ProductType>(typeProperty.GetRawText(), options);
 
             return productType switch

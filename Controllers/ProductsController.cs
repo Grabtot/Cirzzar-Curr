@@ -1,4 +1,4 @@
-﻿using CirzzarCurr.Models;
+﻿using CirzzarCurr.Models.Products;
 using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

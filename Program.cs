@@ -1,6 +1,7 @@
 using CirzzarCurr.Data;
 using CirzzarCurr.Models;
 using CirzzarCurr.Models.Enums;
+using CirzzarCurr.Models.JsonConverters;
 using CirzzarCurr.Repositories;
 
 using CirzzarCurr.Services;
@@ -31,11 +32,15 @@ builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IIngredientsRepository, IngredientsRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new ProductJsonConverter());
+    options.JsonSerializerOptions.Converters.Add(new CartItemJsonConverter());
     options.JsonSerializerOptions.Converters.Add(new EnumJsonConverter<ProductType>());
     options.JsonSerializerOptions.Converters.Add(new EnumJsonConverter<PizzaSize>());
 });

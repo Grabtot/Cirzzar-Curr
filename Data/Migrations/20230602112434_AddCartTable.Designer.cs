@@ -4,6 +4,7 @@ using CirzzarCurr.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CirzzarCurr.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230602112434_AddCartTable")]
+    partial class AddCartTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,7 +140,7 @@ namespace CirzzarCurr.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("CirzzarCurr.Models.Cart.CartItem", b =>
+            modelBuilder.Entity("CirzzarCurr.Models.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,28 +148,59 @@ namespace CirzzarCurr.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ApplicationUserId")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("CirzzarCurr.Models.CartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("CartId");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("CartItem");
+                });
 
-                    b.HasDiscriminator<int>("ProductType").HasValue(2);
+            modelBuilder.Entity("CirzzarCurr.Models.Ingredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.Order", b =>
@@ -205,7 +238,7 @@ namespace CirzzarCurr.Data.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("CirzzarCurr.Models.Products.Ingredient", b =>
+            modelBuilder.Entity("CirzzarCurr.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -213,25 +246,8 @@ namespace CirzzarCurr.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Image")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Ingredients");
-                });
-
-            modelBuilder.Entity("CirzzarCurr.Models.Products.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("Count")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
@@ -557,33 +573,26 @@ namespace CirzzarCurr.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CirzzarCurr.Models.Cart.PizzaCartItem", b =>
+            modelBuilder.Entity("CirzzarCurr.Models.Beverage", b =>
                 {
-                    b.HasBaseType("CirzzarCurr.Models.Cart.CartItem");
-
-                    b.Property<int>("SelectedSize")
-                        .HasColumnType("int");
-
-                    b.HasDiscriminator().HasValue(0);
-                });
-
-            modelBuilder.Entity("CirzzarCurr.Models.Products.Beverage", b =>
-                {
-                    b.HasBaseType("CirzzarCurr.Models.Products.Product");
+                    b.HasBaseType("CirzzarCurr.Models.Product");
 
                     b.HasDiscriminator().HasValue(2);
                 });
 
-            modelBuilder.Entity("CirzzarCurr.Models.Products.Dessert", b =>
+            modelBuilder.Entity("CirzzarCurr.Models.Dessert", b =>
                 {
-                    b.HasBaseType("CirzzarCurr.Models.Products.Product");
+                    b.HasBaseType("CirzzarCurr.Models.Product");
 
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("CirzzarCurr.Models.Products.Pizza", b =>
+            modelBuilder.Entity("CirzzarCurr.Models.Pizza", b =>
                 {
-                    b.HasBaseType("CirzzarCurr.Models.Products.Product");
+                    b.HasBaseType("CirzzarCurr.Models.Product");
+
+                    b.Property<int>("PizzaSize")
+                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue(0);
                 });
@@ -603,19 +612,32 @@ namespace CirzzarCurr.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CirzzarCurr.Models.Cart.CartItem", b =>
+            modelBuilder.Entity("CirzzarCurr.Models.Cart", b =>
                 {
-                    b.HasOne("CirzzarCurr.Models.ApplicationUser", null)
-                        .WithMany("Cart")
-                        .HasForeignKey("ApplicationUserId")
+                    b.HasOne("CirzzarCurr.Models.ApplicationUser", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("CirzzarCurr.Models.Cart", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CirzzarCurr.Models.Products.Product", "Product")
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CirzzarCurr.Models.CartItem", b =>
+                {
+                    b.HasOne("CirzzarCurr.Models.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CirzzarCurr.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cart");
 
                     b.Navigation("Product");
                 });
@@ -637,7 +659,7 @@ namespace CirzzarCurr.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("CirzzarCurr.Models.Products.Product", b =>
+            modelBuilder.Entity("CirzzarCurr.Models.Product", b =>
                 {
                     b.HasOne("CirzzarCurr.Models.Order", null)
                         .WithMany("Products")
@@ -646,13 +668,13 @@ namespace CirzzarCurr.Data.Migrations
 
             modelBuilder.Entity("IngredientPizza", b =>
                 {
-                    b.HasOne("CirzzarCurr.Models.Products.Ingredient", null)
+                    b.HasOne("CirzzarCurr.Models.Ingredient", null)
                         .WithMany()
                         .HasForeignKey("IngredientsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CirzzarCurr.Models.Products.Pizza", null)
+                    b.HasOne("CirzzarCurr.Models.Pizza", null)
                         .WithMany()
                         .HasForeignKey("PizzasId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -712,9 +734,15 @@ namespace CirzzarCurr.Data.Migrations
 
             modelBuilder.Entity("CirzzarCurr.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("Cart");
+                    b.Navigation("Cart")
+                        .IsRequired();
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("CirzzarCurr.Models.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.Order", b =>

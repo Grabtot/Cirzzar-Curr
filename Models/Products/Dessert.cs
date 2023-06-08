@@ -1,7 +1,7 @@
 ﻿using CirzzarCurr.Models.Enums;
 using System.Text.Json.Serialization;
 
-namespace CirzzarCurr.Models
+namespace CirzzarCurr.Models.Products
 {
     public class Dessert : Product
     {

@@ -1,6 +1,6 @@
 using CirzzarCurr.Controllers;
-using CirzzarCurr.Models;
 using CirzzarCurr.Models.Enums;
+using CirzzarCurr.Models.Products;
 using CirzzarCurr.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

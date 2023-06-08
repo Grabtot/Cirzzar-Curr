@@ -1,4 +1,6 @@
-﻿namespace CirzzarCurr.Models
+﻿using CirzzarCurr.Models.Products;
+
+namespace CirzzarCurr.Models
 {
 
     public class Order : IEntity<int>

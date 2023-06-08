@@ -1,8 +1,6 @@
-﻿
+﻿using System.Text.Json.Serialization;
 
-using System.Text.Json.Serialization;
-
-namespace CirzzarCurr.Models
+namespace CirzzarCurr.Models.Products
 {
     public class Ingredient : IEntity<int>
     {
@@ -26,6 +24,15 @@ namespace CirzzarCurr.Models
         public override string ToString()
         {
             return Name;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Ingredient other)
+            {
+                return other.Name == Name;
+            }
+            return base.Equals(obj);
         }
     }
 }

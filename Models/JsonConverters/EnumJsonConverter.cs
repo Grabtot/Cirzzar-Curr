@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace CirzzarCurr.Models
+namespace CirzzarCurr.Models.JsonConverters
 {
     public class EnumJsonConverter<TEnum> : JsonConverter<TEnum> where TEnum : struct, Enum
     {

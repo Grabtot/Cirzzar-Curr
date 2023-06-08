@@ -1,5 +1,5 @@
-﻿using CirzzarCurr.Models;
-using CirzzarCurr.Models.Enums;
+﻿using CirzzarCurr.Models.Enums;
+using CirzzarCurr.Models.Products;
 using CirzzarCurr.Repositories;
 
 namespace CirzzarCurr.Services

@@ -1,5 +1,5 @@
 ﻿using CirzzarCurr.Data;
-using CirzzarCurr.Models;
+using CirzzarCurr.Models.Products;
 using Microsoft.EntityFrameworkCore;
 
 namespace CirzzarCurr.Repositories

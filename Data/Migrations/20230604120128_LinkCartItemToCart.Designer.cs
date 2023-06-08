@@ -4,6 +4,7 @@ using CirzzarCurr.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CirzzarCurr.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230604120128_LinkCartItemToCart")]
+    partial class LinkCartItemToCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,6 +140,26 @@ namespace CirzzarCurr.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("CirzzarCurr.Models.Cart.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Cart");
+                });
+
             modelBuilder.Entity("CirzzarCurr.Models.Cart.CartItem", b =>
                 {
                     b.Property<int>("Id")
@@ -146,9 +168,8 @@ namespace CirzzarCurr.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -161,7 +182,7 @@ namespace CirzzarCurr.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("CartId");
 
                     b.HasIndex("ProductId");
 
@@ -603,11 +624,22 @@ namespace CirzzarCurr.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CirzzarCurr.Models.Cart.Cart", b =>
+                {
+                    b.HasOne("CirzzarCurr.Models.ApplicationUser", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("CirzzarCurr.Models.Cart.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("CirzzarCurr.Models.Cart.CartItem", b =>
                 {
-                    b.HasOne("CirzzarCurr.Models.ApplicationUser", null)
-                        .WithMany("Cart")
-                        .HasForeignKey("ApplicationUserId")
+                    b.HasOne("CirzzarCurr.Models.Cart.Cart", "Cart")
+                        .WithMany("CartItems")
+                        .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -616,6 +648,8 @@ namespace CirzzarCurr.Data.Migrations
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cart");
 
                     b.Navigation("Product");
                 });
@@ -715,6 +749,11 @@ namespace CirzzarCurr.Data.Migrations
                     b.Navigation("Cart");
 
                     b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("CirzzarCurr.Models.Cart.Cart", b =>
+                {
+                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("CirzzarCurr.Models.Order", b =>
